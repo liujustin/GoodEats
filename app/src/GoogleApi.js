@@ -38,32 +38,30 @@ export async function getBusinessLocations(searchTerm, latitude, longitude, radi
         return businessStuff
 }
 export async function getBusinessReviews(business_id) {
-  let allResults = null;
+  let allResults = {};
   await axios
     .get(
       `${proxyurl}https://maps.googleapis.com/maps/api/place/details/json?place_id=${business_id}&fields=name,url,rating,formatted_phone_number,price_level,review,user_ratings_total&key=${key}` 
     )
     .then(res => {
       const results = res.data.result
-      //const reviews = res.data.result.reviews
-      console.log(res.data)
       if (results !== undefined) {
-        allResults= results;
-        var myDate = null;
-        let month = 0;
-        let day = 0;
-        let year = 0;
-        for (let i = 0 ; i < allResults.reviews.length; i++)
-        {
-          allResults.reviews[i].id = i + 1;
-          myDate = new Date(allResults.reviews[i].time * 1000);
-          month = myDate.getMonth() + 1;
-          day = myDate.getDay() + 1;
-          year = myDate.getFullYear();
+        allResults.reviews = results.reviews.map((review, i) => {
+          let myDate = new Date(review.time * 1000)
+          let month = myDate.getMonth() + 1;
+          let day = myDate.getDay() + 1;
+          let year = myDate.getFullYear();
           if (month < 10) month = `0${month}`;
           if (day < 10) day = `0${day}`
-          allResults.reviews[i].time = `${month}-${day}-${year}`
-        }
+          return {
+            id: i + 1,
+            timeCreated: `${month}-${day}-${year}`,
+            rating : review.rating,
+            text: review.text,
+            url: null
+          }
+        })
+        allResults.url = results.url
       }      
     })
     .catch(err => {
@@ -87,13 +85,7 @@ export async function combineReviews(google_search_dict, google_details_dict)
   // Make up id's for the reviews
   for (let i = 0 ; i < google_details_dict.reviews.length; i ++)
   {
-    
-    finalDict.reviews[i] = {};
-    finalDict.reviews[i].id = google_details_dict.reviews[i].id;
-    finalDict.reviews[i].rating = google_details_dict.reviews[i].rating;
-    finalDict.reviews[i].text   = google_details_dict.reviews[i].text;    
-    finalDict.reviews[i].time   = google_details_dict.reviews[i].time;
-    finalDict.reviews[i].url = null; 
+    finalDict.reviews[i] = google_details_dict.reviews[i]
   }
 
   return finalDict;
