@@ -10,7 +10,8 @@ import {
   Typography,
   Button
 } from '@material-ui/core';
-import {getBusinessData} from "../BusinessApi";
+import { getBusinessData } from '../BusinessApi';
+import { withRouter } from 'react-router-dom'
 
 
 function SearchPage(props) {
@@ -54,11 +55,18 @@ function SearchPage(props) {
   }
 
   const handleLocationInput = (e) => {
-    setLocation(e.target.value)
+    setLocation(e.target.value);
   }
 
-  const handleClick = async () => {
-    console.log(await getBusinessData("tsingtao house", "rochester, ny"))
+  const handleSearchBtn = async () => {
+    console.log(input, location)
+    let results = await getBusinessData(input, location);
+    console.log(results)
+    props.history.push({
+      pathname:'/results',
+      state:{ res: results }
+    })
+    
   }
 
   return ( 
@@ -80,7 +88,6 @@ function SearchPage(props) {
               label="What I want" 
               variant="outlined"
               className={classes.searchField}
-              color="white"
               value={input}
               onChange={handleSearchInput} 
             />
@@ -89,7 +96,6 @@ function SearchPage(props) {
               label="Where I want it" 
               variant="outlined"
               className={classes.searchField}
-              color="white"
               value={location}
               onChange={handleLocationInput} 
             />
@@ -101,7 +107,7 @@ function SearchPage(props) {
           id="searchBtn"
           size="large"
           className={classes.searchBtn}
-          onClick={() => handleClick()}
+          onClick={() => handleSearchBtn()}
         >
           Search
         </Button>  
@@ -110,4 +116,4 @@ function SearchPage(props) {
    );
 } 
  
-export default SearchPage;
+export default withRouter(SearchPage);

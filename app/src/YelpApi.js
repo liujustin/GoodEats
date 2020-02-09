@@ -31,14 +31,15 @@ export async function getBusinessLocations(searchTerm, location) {
               coordinates: matchedBusiness.coordinates,
               imageUrl: matchedBusiness.image_url,
               location: matchedBusiness.location,
-              name: matchedBusiness.name
+              name: matchedBusiness.name,
+              phoneNumber: matchedBusiness.phone
             },
             detailedInfo: {
               id: matchedBusiness.id,
               categories: matchedBusiness.categories,
               name: matchedBusiness.name,
               overallRating: matchedBusiness.rating,
-              totalRatings: matchedBusiness.review_count,
+              reviewCount : matchedBusiness.review_count,
               price: matchedBusiness.price,
               url: matchedBusiness.url
             }

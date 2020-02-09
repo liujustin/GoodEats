@@ -7,11 +7,13 @@ import {
   Grid,
   Typography,
 } from '@material-ui/core';
-import google from '../assets/google.png';
-import yelp from '../assets/yelp.png';
-import foursquare from '../assets/foursquare.png';
+import googleImg from '../assets/google.png';
+import yelpImg from '../assets/yelp.png';
+import foursquareImg from '../assets/foursquare.png';
 
 const BusinessCards = (props) => {
+  const {yelp, foursquare, google} = props;
+  console.log(props)
 
   const useStyles = makeStyles({
     root: {
@@ -31,22 +33,39 @@ const BusinessCards = (props) => {
 
   const classes = useStyles();
 
-  const cards = [google, yelp, foursquare];
-  const businessCards = cards.map( (card) => 
-    <Grid item xs key={card}>
+  const cards = [
+    {
+      image: googleImg,
+      data: google
+    },
+    {
+      image: yelpImg,
+      data: yelp
+    },
+    {
+      image: foursquareImg,
+      data: foursquare
+    }
+  ];
+  const businessCards = cards.map( (card) => {
+  console.log(card);
+  return ( 
+    <Grid item xs key={card.data.detailedInfo.id}>
       <Card className={classes.card}>
         <CardMedia
           className={classes.logos}
-          image={card}
+          image={card.image}
           title="Google logo"
         />
         <div style={{margin: '25px 0'}}>
-          <Typography variant="h6">Ratings</Typography>
-          <Typography variant="h6"># of Reviews</Typography>
+          <Typography variant="h6">Overall Rating: {card.data.detailedInfo.overallRating || ""}*</Typography>
+          <Typography variant="h6">Total Number of ratings: {card.data.detailedInfo.reviewCount || ""}</Typography>
         </div>
         <a href='#' alt="review link" target="_blank"></a>
       </Card>
     </Grid>
+  )
+  }
   )
   
   return ( 

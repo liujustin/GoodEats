@@ -11,8 +11,14 @@ import {
 } from '@material-ui/core'
 import BusinessCards from './BusinessCards';
 import ReviewCards from './ReviewCards';
+import { withRouter } from 'react-router-dom'
 
 const Results = (props) => {
+  const {businessInfo, yelp, foursquare, google} = props.location.state.res 
+  const businessName = businessInfo.name
+  const businessLocation = businessInfo.location
+  const businessAddress = `${businessLocation.address1} ${businessLocation.address2} ${businessLocation.city} ${businessLocation.state} ${businessLocation.zip_code}`
+  const businessPhone = businessInfo.phoneNumber
 
   const useStyles = makeStyles(theme => ({
     root: {
@@ -23,6 +29,16 @@ const Results = (props) => {
       marginRight: theme.spacing(2),
     },
   }));
+
+  const shuffle = (array) => {
+    array.sort(() => Math.random() - 0.5);
+  };
+
+  const yelpReviews = yelp.reviews || []
+  const foursquareReviews = foursquare.reviews
+  const googleReviews = google.reviews || []
+  const allReviews = [...yelpReviews, ...foursquareReviews, ...googleReviews]
+  console.log(allReviews)
 
   const classes = useStyles();
   return ( 
@@ -39,24 +55,24 @@ const Results = (props) => {
           variant="h3"
           style={{margin: '50px 100px'}}
         >
-          Business Name
+          {businessName}
         </Typography>
         <Typography
           variant="h5"
           style={{margin: '0 100px'}}
         >
-          Address
+          {businessAddress}
         </Typography>
         <Typography
           variant="body1"
           style={{margin: '0 100px'}}
         >
-          Phone Number
+          Phone Number: {businessPhone}
         </Typography>
       </Container>
 
       <div style={{margin: '100px'}}>
-        <BusinessCards />
+        <BusinessCards yelp={yelp} foursquare={foursquare} google={google}/>
       </div>
 
       <Typography
@@ -67,11 +83,11 @@ const Results = (props) => {
       </Typography>
 
       <div style={{margin: '50px 100px'}}>
-        <ReviewCards />
+        <ReviewCards reviews={allReviews}/>
       </div>
 
     </>
    );
 }
  
-export default Results;
+export default withRouter(Results);

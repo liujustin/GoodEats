@@ -65,6 +65,7 @@ export async function getBusinessReviews(business_id) {
             timeCreated: `${month}-${day}-${year}`,
             rating: review.rating,
             text: review.text,
+            userName: review.author_name,
             url: null
           };
         });

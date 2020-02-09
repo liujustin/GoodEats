@@ -67,11 +67,16 @@ export async function getFourSquareBusinessData(
           tipObject = {
             id: tips.id,
             rating: null,
-            user: `${tips.user.firstName} ${tips.user.lastName}`,
+            userName: `${tips.user.firstName} ${tips.user.lastName}`,
             text: tips.text,
             timeCreated: `${month}-${day}-${year}`,
             url: tips.canonicalUrl
           };
+        }
+        if(tipObject === null) {
+          tipObject = []
+        } else {
+          tipObject = [tipObject]
         }
         businessObject = {
           detailedInfo: {
@@ -82,7 +87,7 @@ export async function getFourSquareBusinessData(
             url: fourSquareURL,
             price: "$".repeat(pricetier)
           },
-          reviews: [tipObject]
+          reviews: tipObject
         };
       })
       .catch(err => {

@@ -8,6 +8,9 @@ import {
 
 
 const ReviewCards = (props) => {
+  console.log(props)
+
+  const {reviews} = props
 
   const useStyles = makeStyles({
     root: {
@@ -24,13 +27,14 @@ const ReviewCards = (props) => {
 
   const classes = useStyles();
 
-  const cards = [1, 2, 3, 4, 5, 6];
-  const reviewCards = cards.map( (card) => 
-    <Grid item xs={12} key={card}>
+  // const cards = [1, 2, 3, 4, 5, 6];
+  const reviewCards = reviews.map( (review) => 
+    <Grid item xs={12} key={review.id} href={review.url}>
       <Card className={classes.card}>
-        <Typography variant="h6">Name</Typography>
-        <Typography variant="subtitle2">Rating</Typography>
-        <Typography variant="body1">Comment</Typography>
+        <Typography variant="h6">{review.userName || "Unknown User"}</Typography>
+        <Typography variant="subtitle2">Rating: {review.rating || ""}*</Typography>
+        <Typography variant="subtitle2">Written at: {review.timeCreated}</Typography>
+        <Typography variant="body1">{review.text}</Typography>
         <a href='#' alt="review link" target="_blank"></a>
       </Card>
     </Grid>
