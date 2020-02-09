@@ -1,28 +1,21 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import {
-  Card,
-  Grid,
-  Typography,
-} from '@material-ui/core';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { Card, Grid, Typography } from "@material-ui/core";
 
+const ReviewCards = props => {
+  console.log(props);
 
-const ReviewCards = (props) => {
-  console.log(props)
-
-  const {reviews} = props
+  const { reviews } = props;
 
   const useStyles = makeStyles({
     root: {
-      flexGrow: 1,
+      flexGrow: 1
       // maxWidth: '33.3333%',
-
     },
     card: {
-      margin: '0 30px',
-      padding: '30px',
-    },
-
+      margin: "0 30px",
+      padding: "30px"
+    }
   });
 
   const classes = useStyles();
@@ -45,17 +38,15 @@ const ReviewCards = (props) => {
         </Card>
       </a>
     </Grid>
-  )
+  ));
 
   return (
-    <>
     <div className={classes.root}>
       <Grid container spacing={3}>
         {reviewCards}
       </Grid>
     </div>
-    </>
-   );
-}
+  );
+};
 
 export default ReviewCards;
