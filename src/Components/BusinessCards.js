@@ -1,34 +1,34 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Container,
   Card,
   CardMedia,
   Grid,
-  Typography,
-} from '@material-ui/core';
-import googleImg from '../assets/google.png';
-import yelpImg from '../assets/yelp.png';
-import foursquareImg from '../assets/foursquare.png';
+  Typography
+} from "@material-ui/core";
+import googleImg from "../assets/google.png";
+import yelpImg from "../assets/yelp.png";
+import foursquareImg from "../assets/foursquare.png";
 
-const BusinessCards = (props) => {
-  const {yelp, foursquare, google} = props;
-  console.log(props)
+const BusinessCards = props => {
+  const { yelp, foursquare, google } = props;
+  console.log(props);
 
   const useStyles = makeStyles({
     root: {
-      flexGrow: 1,
+      flexGrow: 1
     },
     card: {
-      margin: '0 30px',
-      padding: '30px',
-      textAlign: 'center'
+      margin: "0 30px",
+      padding: "30px",
+      textAlign: "center"
     },
     logos: {
       height: 50,
       width: 120,
-      margin: 'auto'
-    },
+      margin: "auto"
+    }
   });
 
   const classes = useStyles();
@@ -47,36 +47,44 @@ const BusinessCards = (props) => {
       data: foursquare
     }
   ];
-  const businessCards = cards.map( (card) => {
-  console.log(card);
-  return ( 
-    <Grid item xs key={card.data.detailedInfo.id}>
-      <Card className={classes.card}>
-        <CardMedia
-          className={classes.logos}
-          image={card.image}
-          title="Google logo"
-        />
-        <div style={{margin: '25px 0'}}>
-          <Typography variant="h6">Overall Rating: {card.data.detailedInfo.overallRating || ""}*</Typography>
-          <Typography variant="h6">Total Number of ratings: {card.data.detailedInfo.reviewCount || ""}</Typography>
-        </div>
-        <a href='#' alt="review link" target="_blank"></a>
-      </Card>
-    </Grid>
-  )
-  }
-  )
-  
-  return ( 
-    <>
-    <div className={classes.root}>
-      <Grid container spacing={3}>
-        {businessCards}
+  const businessCards = cards.map(card => {
+    return (
+      <Grid item xs key={card.data.detailedInfo.id}>
+        <a
+          href={card.data.detailedInfo.url}
+          style={{ textDecoration: "none" }}
+          target="_blank"
+        >
+          <Card className={classes.card}>
+            <CardMedia
+              className={classes.logos}
+              image={card.image}
+              title="Google logo"
+            />
+            <div style={{ margin: "25px 0" }}>
+              <Typography variant="h6">
+                Overall Rating: {card.data.detailedInfo.overallRating || ""}*
+              </Typography>
+              <Typography variant="h6">
+                Total Number of ratings:{" "}
+                {card.data.detailedInfo.reviewCount || ""}
+              </Typography>
+            </div>
+          </Card>
+        </a>
       </Grid>
-    </div>
+    );
+  });
+
+  return (
+    <>
+      <div className={classes.root}>
+        <Grid container spacing={3}>
+          {businessCards}
+        </Grid>
+      </div>
     </>
-   );
-}
- 
+  );
+};
+
 export default BusinessCards;
