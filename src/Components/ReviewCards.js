@@ -3,8 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Card, Grid, Typography } from "@material-ui/core";
 
 const ReviewCards = props => {
-  console.log(props);
-
   const { reviews } = props;
 
   const useStyles = makeStyles({

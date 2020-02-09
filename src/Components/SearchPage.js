@@ -57,9 +57,7 @@ function SearchPage(props) {
   };
 
   const handleSearchBtn = async () => {
-    console.log(input, location);
     let results = await getBusinessData(input, location);
-    console.log(results);
     props.history.push({
       pathname: "/results",
       state: { res: results }

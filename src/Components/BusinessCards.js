@@ -1,12 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  Container,
-  Card,
-  CardMedia,
-  Grid,
-  Typography
-} from "@material-ui/core";
+import { Card, CardMedia, Grid, Typography } from "@material-ui/core";
 import googleImg from "../assets/google.png";
 import yelpImg from "../assets/yelp.png";
 import foursquareImg from "../assets/foursquare.png";
