@@ -80,7 +80,7 @@ export async function getBusinessReviews(business_id) {
             rating: review.rating,
             userName: review.user.name,
             text: review.text,
-            timeCreated: `${month}-${date}-${year}`,
+            timeCreated: `${month}-${day}-${year}`,
             url: review.url
           };
         });
