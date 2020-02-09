@@ -18,7 +18,7 @@ export async function getBusinessData(search_name, long, lat)
 
     let businessObject = null;
     await axios
-    .get(`https://api.foursquare.com/v2/venues/search?intent=match&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&name=${search_name}&ll=${long},${lat}&v=20200208`)
+    .get(`https://api.foursquare.com/v2/venues/search?intent=match&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&name=${search_name}&ll=${long},${lat}&v=20200209`)
     .then(res => {
         businessId = res.data.response.venues[0].id;
     })
