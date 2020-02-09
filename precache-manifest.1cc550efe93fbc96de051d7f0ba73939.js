@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b05701458e855c89f3b336910cce8dd6",
+    "revision": "8517672a85c4c86d2e343c72f3bbc344",
     "url": "/GoodEats/index.html"
   },
   {
-    "revision": "aadd1d1c96a9e7935b08",
+    "revision": "57ed76175fdca458779a",
     "url": "/GoodEats/static/css/main.d1b05096.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/GoodEats/static/js/2.ad977806.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "aadd1d1c96a9e7935b08",
-    "url": "/GoodEats/static/js/main.069b55ef.chunk.js"
+    "revision": "57ed76175fdca458779a",
+    "url": "/GoodEats/static/js/main.e91df5f5.chunk.js"
   },
   {
     "revision": "f6ca5670c8abe479f6d1",
