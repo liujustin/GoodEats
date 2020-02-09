@@ -27,14 +27,21 @@ export async function getBusinessLocations(searchTerm, location) {
         let businessName = matchedBusiness.name.toLowerCase();
         if (businessName.includes(searchTerm.toLowerCase())) {
           businessStuff = {
-            id: matchedBusiness.id,
-            categories: matchedBusiness.categories,
-            coordinates: matchedBusiness.coordinates,
-            location: matchedBusiness.location,
-            name: matchedBusiness.name,
-            overallRating: matchedBusiness.rating,
-            reviewCount: matchedBusiness.review_count,
-            url: matchedBusiness.url
+            overallInfo: {
+              coordinates: matchedBusiness.coordinates,
+              imageUrl: matchedBusiness.image_url,
+              location: matchedBusiness.location,
+              name: matchedBusiness.name
+            },
+            detailedInfo: {
+              id: matchedBusiness.id,
+              categories: matchedBusiness.categories,
+              name: matchedBusiness.name,
+              overallRating: matchedBusiness.rating,
+              totalRatings: matchedBusiness.review_count,
+              price: matchedBusiness.price,
+              url: matchedBusiness.url
+            }
           };
         }
       }
@@ -61,11 +68,44 @@ export async function getBusinessReviews(business_id) {
     .then(res => {
       const reviews = res.data.reviews;
       if (reviews !== undefined || reviews.length > 0) {
-        allReviews = reviews;
+        allReviews = reviews.map(review => {
+          let convertedDate = new Date(review.time_created);
+          let month = convertedDate.getMonth() + 1;
+          let day = convertedDate.getDate();
+          let year = convertedDate.getFullYear();
+          if (month < 10) month = `0${month}`;
+          if (day < 10) day = `0${day}`;
+          return {
+            id: review.id,
+            rating: review.rating,
+            userName: review.user.name,
+            text: review.text,
+            timeCreated: `${month}-${date}-${year}`,
+            url: review.url
+          };
+        });
       }
     })
     .catch(err => {
       console.log(err);
     });
   return allReviews;
+}
+
+export async function getBusinessData(searchTerm, location) {
+  let businessLocationData = await getBusinessLocations(searchTerm, location);
+  if (businessLocationData !== null) {
+    let businessReviews = await getBusinessReviews(
+      businessLocationData.detailedInfo.id
+    );
+    if (businessReviews !== null) {
+      return {
+        overallInfo: businessLocationData.overallInfo,
+        detailedInfo: businessLocationData.detailedInfo,
+        reviews: businessReviews
+      };
+    }
+  } else {
+    return null;
+  }
 }
