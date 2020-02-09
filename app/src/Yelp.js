@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import { getBusinessLocations, getBusinessReviews } from "./YelpApi";
+import {
+  getBusinessLocations,
+  getBusinessReviews,
+  getBusinessData
+} from "./YelpApi";
+import {getBusinessData} from "./FourSquare";
 
 function Yelp() {
   const [search, setSearch] = useState("");
   const [location, setLocation] = useState("");
   const [data, setData] = useState({});
-  const [reviews, setReviews] = useState([]);
 
   const handleSearchChange = event => {
     const query = event.target.value;
@@ -19,13 +23,14 @@ function Yelp() {
 
   const getYelpData = async () => {
     if (search !== "" && location !== "") {
-      let businessData = await getBusinessLocations(search, location);
+      let businessData = await getBusinessData(search, location);
       if (businessData !== null) {
         setData(businessData);
-        let reviewData = await getBusinessReviews(businessData.id);
-        if (reviewData !== null) {
-          setReviews(reviewData);
-        }
+        console.log(businessData);
+        let longitude = 43.09519;
+        let latitude = -77.63296;
+        let businessData = await getBusinessData(search, longitude, latitude);
+        console.log(businessData)
       }
     } else {
       console.log("provide search term and location");
@@ -51,7 +56,7 @@ function Yelp() {
       <button className="button is-info" onClick={() => getYelpData()}>
         Search
       </button>
-      <div>
+      {/* <div>
         {data.id} {data.name} {data.overallRating}{" "}
         {`coordinates ${data.coordinates}`}
         <ul>
@@ -59,7 +64,7 @@ function Yelp() {
             <li>{review.text}</li>
           ))}
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 }
