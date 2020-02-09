@@ -36,16 +36,16 @@ export async function getFourSquareBusinessData(
   if (businessId !== null) {
     await axios
       .get(
-        `https://api.foursquare.com/v2/venues/${businessId}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&v=20200208`
+        `https://api.foursquare.com/v2/venues/${businessId}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&v=20200209`
       )
       .then(res => {
-        const businessVenue = res.data.response.venues;
+        const businessVenue = res.data.response.venue;
         if (businessVenue !== undefined) {
-          totaltipCount = res.data.response.venue.stats.tipCount;
-          OverallRating = res.data.response.venue.rating / 2;
-          Category = res.data.response.venue.categories;
-          fourSquareURL = res.data.response.venue.canonicalUrl;
-          pricetier = res.data.response.venue.price.tier;
+          totaltipCount = businessVenue.stats.tipCount;
+          OverallRating = businessVenue.rating / 2;
+          Category = businessVenue.categories.map(category => category.name);
+          fourSquareURL = businessVenue.canonicalUrl;
+          pricetier = businessVenue.price.tier;
         }
       })
       .catch(err => {
@@ -54,7 +54,7 @@ export async function getFourSquareBusinessData(
 
     await axios
       .get(
-        `https://api.foursquare.com/v2/venues/${businessId}/tips?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&v=20200208`
+        `https://api.foursquare.com/v2/venues/${businessId}/tips?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&v=20200209`
       )
       .then(res => {
         let tipsResult = res.data.response.tips.items;
