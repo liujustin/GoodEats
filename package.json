@@ -1,7 +1,8 @@
 {
-  "name": "app",
+  "name": "hack",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://liujustin.github.io/hack",
   "dependencies": {
     "@material-ui/core": "^4.9.1",
     "@material-ui/icons": "^4.9.1",
@@ -15,7 +16,6 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.1"
   },
-  "homepage": "http://liujustin.github.io/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

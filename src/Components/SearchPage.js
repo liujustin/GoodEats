@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   AppBar,
   Toolbar,
@@ -9,98 +9,100 @@ import {
   Grid,
   Typography,
   Button
-} from '@material-ui/core';
-import { getBusinessData } from '../BusinessApi';
-import { withRouter } from 'react-router-dom'
-
+} from "@material-ui/core";
+import { getBusinessData } from "../BusinessApi";
+import { withRouter } from "react-router-dom";
 
 function SearchPage(props) {
-
-  const [input, setInput] = useState('');
-  const [location, setLocation] = useState('')
+  const [input, setInput] = useState("");
+  const [location, setLocation] = useState("");
 
   const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1,
-      backgroundColor: '#F83D3D',
+      backgroundColor: "#F83D3D"
     },
     menuButton: {
-      marginRight: theme.spacing(2),
+      marginRight: theme.spacing(2)
     },
     searchSection: {
-      backgroundColor: '#FF5757',
-      height: '350px',
-      margin: 'auto',
-      textAlign: 'center'
+      backgroundColor: "#FF5757",
+      height: "350px",
+      margin: "auto",
+      textAlign: "center"
     },
     searchBar: {
-      width: '100%',
+      width: "100%"
     },
     searchBtn: {
-      backgroundColor: '#E3B505',
-      marginTop: '85px',
-      padding: '30px 70px'
+      backgroundColor: "#E3B505",
+      marginTop: "85px",
+      padding: "30px 70px"
     },
     searchField: {
-      width: '45%', 
-      margin: '0 20px',
-      color: 'white'
+      width: "45%",
+      margin: "0 20px",
+      color: "white"
     }
   }));
 
   const classes = useStyles();
 
-  const handleSearchInput = (e) => {
+  const handleSearchInput = e => {
     setInput(e.target.value);
-  }
+  };
 
-  const handleLocationInput = (e) => {
+  const handleLocationInput = e => {
     setLocation(e.target.value);
-  }
+  };
 
   const handleSearchBtn = async () => {
-    console.log(input, location)
+    console.log(input, location);
     let results = await getBusinessData(input, location);
-    console.log(results)
+    console.log(results);
     props.history.push({
-      pathname:'/results',
-      state:{ res: results }
-    })
-    
-  }
+      pathname: "/results",
+      state: { res: results }
+    });
+  };
 
-  return ( 
+  return (
     <>
       <AppBar position="static">
         <Toolbar variant="dense" className={classes.root}>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-           
-          </IconButton>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+          ></IconButton>
         </Toolbar>
       </AppBar>
       <div className={classes.searchSection}>
         <Container>
-          <Typography variant="h1" style={{padding: '30px 0'}}>Title</Typography>
+          <Typography variant="h1" style={{ padding: "30px 0" }}>
+            GOOD EATS
+          </Typography>
           <Grid item xs={3} />
           <Grid item xs className={classes.searchBar}>
-            <TextField 
-              id="outlined-basic" 
-              label="What I want" 
+            <TextField
+              id="outlined-basic"
+              label="What I want"
               variant="outlined"
               className={classes.searchField}
               value={input}
-              onChange={handleSearchInput} 
+              onChange={handleSearchInput}
             />
-            <TextField 
-              id="outlined-basic" 
-              label="Where I want it" 
+            <TextField
+              id="outlined-basic"
+              label="Where I want it"
               variant="outlined"
               className={classes.searchField}
               value={location}
-              onChange={handleLocationInput} 
+              onChange={handleLocationInput}
             />
           </Grid>
-          <Grid item xs={3} /> 
+          <Grid item xs={3} />
         </Container>
         <Button
           variant="contained"
@@ -110,10 +112,10 @@ function SearchPage(props) {
           onClick={() => handleSearchBtn()}
         >
           Search
-        </Button>  
+        </Button>
       </div>
     </>
-   );
-} 
- 
+  );
+}
+
 export default withRouter(SearchPage);
