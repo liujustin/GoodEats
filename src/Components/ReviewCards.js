@@ -1,54 +1,51 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import {
-  Card,
-  Grid,
-  Typography,
-} from '@material-ui/core';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { Card, Grid, Typography } from "@material-ui/core";
 
-
-const ReviewCards = (props) => {
-  console.log(props)
-
-  const {reviews} = props
+const ReviewCards = props => {
+  const { reviews } = props;
 
   const useStyles = makeStyles({
     root: {
-      flexGrow: 1,
+      flexGrow: 1
       // maxWidth: '33.3333%',
-     
     },
     card: {
-      margin: '0 30px',
-      padding: '30px',
-    },
-  
+      margin: "0 30px",
+      padding: "30px"
+    }
   });
 
   const classes = useStyles();
 
   // const cards = [1, 2, 3, 4, 5, 6];
-  const reviewCards = reviews.map( (review) => 
+  const reviewCards = reviews.map(review => (
     <Grid item xs={12} key={review.id} href={review.url}>
       <Card className={classes.card}>
-        <Typography variant="h6">{review.userName || "Unknown User"}</Typography>
-        <Typography variant="subtitle2">Rating: {review.rating || ""}*</Typography>
-        <Typography variant="subtitle2">Written at: {review.timeCreated}</Typography>
+        <Typography variant="h6">
+          {review.userName || "Unknown User"}
+        </Typography>
+        <Typography variant="subtitle2">
+          Rating: {review.rating || ""}*
+        </Typography>
+        <Typography variant="subtitle2">
+          Written at: {review.timeCreated}
+        </Typography>
         <Typography variant="body1">{review.text}</Typography>
-        <a href='#' alt="review link" target="_blank"></a>
+        <a href="#" alt="review link" target="_blank"></a>
       </Card>
     </Grid>
-  )
-  
-  return ( 
+  ));
+
+  return (
     <>
-    <div className={classes.root}>
-      <Grid container spacing={3}>
-        {reviewCards}
-      </Grid>
-    </div>
+      <div className={classes.root}>
+        <Grid container spacing={3}>
+          {reviewCards}
+        </Grid>
+      </div>
     </>
-   );
-}
- 
+  );
+};
+
 export default ReviewCards;

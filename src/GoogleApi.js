@@ -15,18 +15,10 @@ export async function getBusinessLocations(
     )
     .then(res => {
       const results = res.data.results;
-      console.log(results);
       if (results !== undefined && results.length > 0) {
         // Get the first result and see if it matches the search
         let matchedResult = results[0];
         let restaurantName = matchedResult.name.toLowerCase();
-        console.log(
-          restaurantName.includes(searchTerm.toLowerCase()),
-          restaurantName,
-          searchTerm.toLowerCase()
-        );
-
-        console.log("Matched result: ", matchedResult);
         if (restaurantName.includes(searchTerm.toLowerCase())) {
           businessStuff = {
             id: matchedResult.place_id,
@@ -84,7 +76,6 @@ export async function combineReviews(search, latitude, longitude, radius) {
     longitude,
     radius
   );
-  console.log(google_search_dict);
   let businessId = google_search_dict.id;
   let google_details_dict = await getBusinessReviews(businessId);
 

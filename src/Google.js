@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { getBusinessLocations, getBusinessReviews, combineReviews } from "./GoogleApi";
+import {
+  getBusinessLocations,
+  getBusinessReviews,
+  combineReviews
+} from "./GoogleApi";
 
 function Yelp() {
   const [search, setSearch] = useState("");
@@ -19,28 +23,29 @@ function Yelp() {
 
   const getYelpData = async () => {
     if (search !== "" && location !== "") {
-    //   let businessData = await getBusinessLocations(search, location);
-    //   if (businessData !== null) {
-    //     setData(businessData);
-    //     let reviewData = await getBusinessReviews(businessData.id);
-    //     if (reviewData !== null) {
-    //       setReviews(reviewData);
-    //     }
-    //   }
-    let longitude = 43.09519
-    let latitude = -77.63296
-    let radius = 5000
-    let businessData = await getBusinessLocations(search, longitude, latitude, radius);
-  
-    console.log(businessData);
-    let businessId = businessData.id;
-    let businessDetails = await getBusinessReviews(businessId);
-    let finalDict = await combineReviews(businessData, businessDetails);
-    console.log(businessDetails);
-    console.log(finalDict)
+      //   let businessData = await getBusinessLocations(search, location);
+      //   if (businessData !== null) {
+      //     setData(businessData);
+      //     let reviewData = await getBusinessReviews(businessData.id);
+      //     if (reviewData !== null) {
+      //       setReviews(reviewData);
+      //     }
+      //   }
+      let longitude = 43.09519;
+      let latitude = -77.63296;
+      let radius = 5000;
+      let businessData = await getBusinessLocations(
+        search,
+        longitude,
+        latitude,
+        radius
+      );
+
+      let businessId = businessData.id;
+      let businessDetails = await getBusinessReviews(businessId);
+      let finalDict = await combineReviews(businessData, businessDetails);
     } else {
       console.log("provide search term and location");
-  
     }
   };
 
