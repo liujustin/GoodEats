@@ -4,6 +4,7 @@ import {
   getBusinessReviews,
   getBusinessData
 } from "./YelpApi";
+import {getBusinessData} from "./FourSquare";
 
 function Yelp() {
   const [search, setSearch] = useState("");
@@ -26,6 +27,10 @@ function Yelp() {
       if (businessData !== null) {
         setData(businessData);
         console.log(businessData);
+        let longitude = 43.09519;
+        let latitude = -77.63296;
+        let businessData = await getBusinessData(search, longitude, latitude);
+        console.log(businessData)
       }
     } else {
       console.log("provide search term and location");
