@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  getBusinessLocations,
-  getBusinessReviews,
-  getBusinessData
-} from "./YelpApi";
-import {getBusinessData} from "./FourSquare";
+import { getBusinessData } from "./BusinessApi";
 
 function Yelp() {
   const [search, setSearch] = useState("");
@@ -24,14 +19,14 @@ function Yelp() {
   const getYelpData = async () => {
     if (search !== "" && location !== "") {
       let businessData = await getBusinessData(search, location);
-      if (businessData !== null) {
-        setData(businessData);
-        console.log(businessData);
-        let longitude = 43.09519;
-        let latitude = -77.63296;
-        let businessData = await getBusinessData(search, longitude, latitude);
-        console.log(businessData)
-      }
+      // if (businessData !== null) {
+      //   setData(businessData);
+      //   console.log(businessData);
+      //   let longitude = 43.09519;
+      //   let latitude = -77.63296;
+      //   let businessData = await getBusinessData(search, longitude, latitude);
+      //   console.log(businessData);
+      // }
     } else {
       console.log("provide search term and location");
     }
