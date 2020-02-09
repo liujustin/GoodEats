@@ -37,7 +37,7 @@ export async function getBusinessData(search_name, long, lat)
     .get(`https://api.foursquare.com/v2/venues/${businessId}/tips?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&v=20200208`)
     .then(res => {
         tips = res.data.response.tips.items[0]
-        var date = new Date(1304921325178.3193);
+        var date = new Date(tips.createdAt);
         var year = date.getFullYear();
         var month = ("0" + (date.getMonth() + 1)).slice(-2);
         var day = ("0" + date.getDate()).slice(-2);
