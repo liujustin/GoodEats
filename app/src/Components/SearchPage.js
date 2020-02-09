@@ -15,6 +15,7 @@ import {
 function SearchPage(props) {
 
   const [input, setInput] = useState('');
+  const [location, setLocation] = useState('')
 
   const useStyles = makeStyles(theme => ({
     root: {
@@ -51,6 +52,10 @@ function SearchPage(props) {
     setInput(e.target.value);
   }
 
+  const handleLocationInput = (e) => {
+    setLocation(e.target.value)
+  }
+
   return ( 
     <>
       <AppBar position="static">
@@ -80,8 +85,8 @@ function SearchPage(props) {
               variant="outlined"
               className={classes.searchField}
               color="white"
-              value={input}
-              onChange={handleSearchInput} 
+              value={location}
+              onChange={handleLocationInput} 
             />
           </Grid>
           <Grid item xs={3} /> 
