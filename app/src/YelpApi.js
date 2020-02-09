@@ -21,7 +21,7 @@ export async function getBusinessLocations(searchTerm, location) {
     .get(`${proxyurl}https://api.yelp.com/v3/businesses/search`, config)
     .then(res => {
       const businesses = res.data.businesses;
-      if (businesses !== undefined || businesses.length > 0) {
+      if (businesses !== undefined && businesses.length > 0) {
         // Get the first business and see if it matches the search
         let matchedBusiness = businesses[0];
         let businessName = matchedBusiness.name.toLowerCase();
@@ -67,7 +67,7 @@ export async function getBusinessReviews(business_id) {
     )
     .then(res => {
       const reviews = res.data.reviews;
-      if (reviews !== undefined || reviews.length > 0) {
+      if (reviews !== undefined && reviews.length > 0) {
         allReviews = reviews.map(review => {
           let convertedDate = new Date(review.time_created);
           let month = convertedDate.getMonth() + 1;
@@ -92,7 +92,7 @@ export async function getBusinessReviews(business_id) {
   return allReviews;
 }
 
-export async function getBusinessData(searchTerm, location) {
+export async function getYelpBusinessData(searchTerm, location) {
   let businessLocationData = await getBusinessLocations(searchTerm, location);
   if (businessLocationData !== null) {
     let businessReviews = await getBusinessReviews(
