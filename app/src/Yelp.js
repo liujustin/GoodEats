@@ -25,7 +25,7 @@ function Yelp() {
       //   let longitude = 43.09519;
       //   let latitude = -77.63296;
       //   let businessData = await getBusinessData(search, longitude, latitude);
-      //   console.log(businessData);
+      console.log(businessData);
       // }
     } else {
       console.log("provide search term and location");

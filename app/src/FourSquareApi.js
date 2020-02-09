@@ -5,8 +5,8 @@ const CLIENT_SECRET = "BWTDZTNSPCWV2W3CWKISSLTNKFVWM4YWLFP1G4IITKDVLGEP";
 
 export async function getFourSquareBusinessData(
   search_name,
-  longitude,
-  latitude
+  latitude,
+  longitude
 ) {
   let businessId = null;
 
@@ -22,7 +22,7 @@ export async function getFourSquareBusinessData(
   let businessObject = null;
   await axios
     .get(
-      `https://api.foursquare.com/v2/venues/search?intent=match&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&name=${search_name}&ll=${longitude},${latitude}&v=20200208`
+      `https://api.foursquare.com/v2/venues/search?intent=match&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&name=${search_name}&ll=${latitude},${longitude}&v=20200208`
     )
     .then(res => {
       const businessVenue = res.data.response.venues;

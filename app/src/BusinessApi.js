@@ -1,14 +1,14 @@
 import { getYelpBusinessData } from "./YelpApi";
 import { getFourSquareBusinessData } from "./FourSquareApi";
+import { combineReviews } from "./GoogleApi";
 
 export async function getBusinessData(searchTerm, location) {
   let result = {};
   let yelpData = await getYelpBusinessData(searchTerm, location);
-  console.log(yelpData);
   if (yelpData !== null) {
     let overallInfo = yelpData.overallInfo;
-    let longitude = overallInfo.coordinates.longitude;
     let latitude = overallInfo.coordinates.latitude;
+    let longitude = overallInfo.coordinates.longitude;
     result.businessInfo = overallInfo;
     result.yelp = {
       detailedInfo: yelpData.detailedInfo,
@@ -16,10 +16,9 @@ export async function getBusinessData(searchTerm, location) {
     };
     let fourSquareData = await getFourSquareBusinessData(
       searchTerm,
-      longitude,
-      latitude
+      latitude,
+      longitude
     );
-    console.log(fourSquareData);
     if (fourSquareData !== null) {
       result.foursquare = {
         detailedInfo: fourSquareData.detailedInfo,
@@ -28,5 +27,21 @@ export async function getBusinessData(searchTerm, location) {
     } else {
       result.foursquare = null;
     }
+    let defaultRadius = 5000;
+    let googleData = await combineReviews(
+      searchTerm,
+      latitude,
+      longitude,
+      defaultRadius
+    );
+    if (googleData !== null) {
+      result.google = {
+        detailedInfo: googleData.detailedInfo,
+        reviews: googleData.reviews
+      };
+    } else {
+      result.google = null;
+    }
   }
+  return result;
 }

@@ -76,15 +76,26 @@ export async function getBusinessReviews(business_id) {
     });
   return allResults;
 }
-export async function combineReviews(google_search_dict, google_details_dict) {
+export async function combineReviews(search, latitude, longitude, radius) {
+  let google_search_dict = await getBusinessLocations(
+    search,
+    latitude,
+    longitude,
+    radius
+  );
+  console.log(google_search_dict);
+  let businessId = google_search_dict.id;
+  let google_details_dict = await getBusinessReviews(businessId);
+
   let finalDict = {};
 
-  finalDict.categories = google_search_dict.types;
-  finalDict.price = google_search_dict.price_level;
-  finalDict.overallRating = google_search_dict.overallRating;
-  finalDict.reviewCount = google_search_dict.totalRatings;
-
-  finalDict.url = google_details_dict.url;
+  finalDict.detailedInfo = {
+    categories: google_search_dict.types,
+    price: google_search_dict.price_level,
+    overallRating: google_search_dict.overallRating,
+    reviewCount: google_search_dict.totalRatings,
+    url: google_details_dict.url
+  };
 
   finalDict.reviews = [];
   var tempString = "";
