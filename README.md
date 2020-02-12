@@ -8,7 +8,7 @@ informed chice of whether to try it out.
 
 We started with the idea of tackling Wegman's challenge and knew we wanted to help users compare products to save time and money and make the shopping experience seamless.
 
-We ran into the problem of not knowing if products a universal id across platforms and Wegman's was the only API we had. Other supermarkets like Walmart did not have one so we couldn't compare products.
+We ran into the problem of not knowing if products had a universal id across platforms and Wegmans seemed to be the only API we had access to (Walmart was closed beta, other big one's like Stop And Shop and ShopRite didnt have). This meant that we couldn't compare products so we scrapped that idea.
 
 We then found that when looking at places to eat, we always found that we were exclusively looking at Yelp for reviews from the community. However, we knew that there was a whole other community within Google Local Guides that have more reviews from people so we thought it would be a good idea to put the two together and have a site where the reviews were an aggregation from both sources for a more unbiased/harsh review. We then decided to add Foursquare as well as we knew it also might have some good reviews from the small community it has.
 
